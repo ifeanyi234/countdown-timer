@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>JS Projects | Countdown Timer</title>
+  </head>
+  <body class="flex poppins-regular">
+    <header>
+      <div class="brand poppins-bold">Countdown Timer</div>
+    </header>
+
+    <div class="container flex">
+      <div class="timer-wrapper flex">
+        <!-- Display -->
+        <div class="display flex">
+          <div class="time-block flex">
+            <span class="time-num" id="days">00</span>
+            <span class="time-label">Days</span>
+          </div>
+          <span class="separator">:</span>
+          <div class="time-block flex">
+            <span class="time-num" id="hours">00</span>
+            <span class="time-label">Hours</span>
+          </div>
+          <span class="separator">:</span>
+          <div class="time-block flex">
+            <span class="time-num" id="minutes">00</span>
+            <span class="time-label">Minutes</span>
+          </div>
+          <span class="separator">:</span>
+          <div class="time-block flex">
+            <span class="time-num" id="seconds">00</span>
+            <span class="time-label">Seconds</span>
+          </div>
+        </div>
+
+        <!-- Finished State -->
+        <div id="finishedMsg" class="finished-msg hidden">🎉 Time's up!</div>
+
+        <!-- Input -->
+        <form action="#" class="flex input-area">
+          <div class="field flex">
+            <label for="targetDate">Target Date & Time:</label>
+            <input type="datetime-local" id="targetDate" />
+          </div>
+          <div class="controls flex">
+            <button type="submit" id="startBtn">Start</button>
+            <button type="button" id="pauseBtn" disabled>Pause</button>
+            <button type="button" id="resetBtn" disabled>Reset</button>
+          </div>
+        </form>
+
+        <!-- Error -->
+        <div id="error" class="error hidden"></div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
