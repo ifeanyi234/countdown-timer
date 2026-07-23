@@ -9,6 +9,11 @@ const startBtn = document.querySelector("#startBtn");
 const pauseBtn = document.querySelector("#pauseBtn");
 const resetBtn = document.querySelector("#resetBtn");
 
-startBtn.addEventListener("click", function () {
-  console.log(targetDateInput.value);
+const now = new Date();
+
+startBtn.addEventListener("click", function (e) {
+  e.preventDefault();
+  const targetDate = new Date(targetDateInput.value);
+  const timeLeft = targetDate.getTime() - now.getTime();
+  console.log(timeLeft);
 });
