@@ -27,5 +27,11 @@ startBtn.addEventListener("click", function (e) {
   e.preventDefault();
   const targetDate = new Date(targetDateInput.value);
   const timeLeft = calcRemainingTime(targetDate, now);
-  console.log(getRemainingDate(timeLeft));
+  const remainingTime = getRemainingDate(timeLeft);
+
+  // Display Remaining date
+  daysHtmlEl.innerHTML = String(remainingTime.day).padStart(2, "0");
+  hoursHtmlEl.innerHTML = String(remainingTime.hour).padStart(2, "0");
+  minutesHtmlEl.innerHTML = String(remainingTime.minute).padStart(2, "0");
+  secondsHtmlEl.innerHTML = String(remainingTime.second).padStart(2, "0");
 });
