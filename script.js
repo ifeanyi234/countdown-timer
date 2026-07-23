@@ -8,3 +8,7 @@ const targetDateInput = document.querySelector("#targetDate");
 const startBtn = document.querySelector("#startBtn");
 const pauseBtn = document.querySelector("#pauseBtn");
 const resetBtn = document.querySelector("#resetBtn");
+
+startBtn.addEventListener("click", function () {
+  console.log(targetDateInput.value);
+});
