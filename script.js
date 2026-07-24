@@ -9,7 +9,10 @@ const startBtn = document.querySelector("#startBtn");
 const pauseBtn = document.querySelector("#pauseBtn");
 const resetBtn = document.querySelector("#resetBtn");
 
-const now = new Date();
+let timeLeft;
+let remainingTime;
+let now;
+let targetDate;
 
 const calcRemainingTime = function (target, now) {
   return target.getTime() - now.getTime();
@@ -22,16 +25,31 @@ const getRemainingDate = function (milliSec) {
     second: Math.floor((milliSec / 1000) % 60),
   };
 };
-
-startBtn.addEventListener("click", function (e) {
-  e.preventDefault();
-  const targetDate = new Date(targetDateInput.value);
-  const timeLeft = calcRemainingTime(targetDate, now);
-  const remainingTime = getRemainingDate(timeLeft);
-
-  // Display Remaining date
+const displayTimeLeft = function () {
+  console.log(remainingTime);
   daysHtmlEl.innerHTML = String(remainingTime.day).padStart(2, "0");
   hoursHtmlEl.innerHTML = String(remainingTime.hour).padStart(2, "0");
   minutesHtmlEl.innerHTML = String(remainingTime.minute).padStart(2, "0");
   secondsHtmlEl.innerHTML = String(remainingTime.second).padStart(2, "0");
+};
+const countDown = function (milliSec) {
+  timeLeft -= 1000;
+  return timeLeft;
+
+  remainingTime = getRemainingDate(timeLeft);
+  //
+  displayTimeLeft();
+};
+
+startBtn.addEventListener("click", function (e) {
+  e.preventDefault();
+  targetDate = new Date(targetDateInput.value);
+  now = new Date();
+
+  timeLeft = calcRemainingTime(targetDate, now);
+  remainingTime = getRemainingDate(timeLeft);
+
+  // Display Remaining date
+  displayTimeLeft();
 });
+setInterval(countDown, 1000);
