@@ -51,5 +51,5 @@ startBtn.addEventListener("click", function (e) {
 
   // Display Remaining date
   displayTimeLeft();
+  setInterval(countDown, 1000);
 });
-setInterval(countDown, 1000);
