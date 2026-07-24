@@ -34,7 +34,7 @@ const displayTimeLeft = function () {
 };
 const countDown = function (milliSec) {
   timeLeft -= 1000;
-  return timeLeft;
+  // return timeLeft;
 
   remainingTime = getRemainingDate(timeLeft);
   //
