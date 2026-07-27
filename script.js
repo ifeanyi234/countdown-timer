@@ -11,6 +11,7 @@ const resetBtn = document.querySelector("#resetBtn");
 
 let timeLeft;
 let remainingTime;
+let intervalId;
 let now;
 let targetDate;
 
@@ -26,7 +27,6 @@ const getRemainingDate = function (milliSec) {
   };
 };
 const displayTimeLeft = function () {
-  console.log(remainingTime);
   daysHtmlEl.innerHTML = String(remainingTime.day).padStart(2, "0");
   hoursHtmlEl.innerHTML = String(remainingTime.hour).padStart(2, "0");
   minutesHtmlEl.innerHTML = String(remainingTime.minute).padStart(2, "0");
@@ -37,19 +37,20 @@ const countDown = function (milliSec) {
   // return timeLeft;
 
   remainingTime = getRemainingDate(timeLeft);
-  //
+
   displayTimeLeft();
 };
 
 startBtn.addEventListener("click", function (e) {
   e.preventDefault();
+  clearInterval(intervalId);
   targetDate = new Date(targetDateInput.value);
   now = new Date();
 
   timeLeft = calcRemainingTime(targetDate, now);
   remainingTime = getRemainingDate(timeLeft);
+  intervalId = setInterval(countDown, 1000);
 
   // Display Remaining date
   displayTimeLeft();
-  setInterval(countDown, 1000);
 });
