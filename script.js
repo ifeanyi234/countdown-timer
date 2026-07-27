@@ -32,17 +32,25 @@ const displayTimeLeft = function () {
   minutesHtmlEl.innerHTML = String(remainingTime.minute).padStart(2, "0");
   secondsHtmlEl.innerHTML = String(remainingTime.second).padStart(2, "0");
 };
-const countDown = function (milliSec) {
+const countDown = function () {
   timeLeft -= 1000;
-  // return timeLeft;
 
   remainingTime = getRemainingDate(timeLeft);
-
+  console.log(timeLeft);
   displayTimeLeft();
 };
 
+// const killCountDown = function () {
+//   if (timeLeft <= 0) {
+//     clearInterval(intervalId);
+//   }
+// };
+
 startBtn.addEventListener("click", function (e) {
   e.preventDefault();
+  if (!targetDateInput.value) {
+    return;
+  }
   clearInterval(intervalId);
   targetDate = new Date(targetDateInput.value);
   now = new Date();
@@ -50,7 +58,7 @@ startBtn.addEventListener("click", function (e) {
   timeLeft = calcRemainingTime(targetDate, now);
   remainingTime = getRemainingDate(timeLeft);
   intervalId = setInterval(countDown, 1000);
-
+  // setInterval(killCountDown,1000)
   // Display Remaining date
   displayTimeLeft();
 });
