@@ -40,11 +40,12 @@ const countDown = function () {
   displayTimeLeft();
 };
 
-// const killCountDown = function () {
-//   if (timeLeft <= 0) {
-//     clearInterval(intervalId);
-//   }
-// };
+const killCountDown = function () {
+  if (timeLeft <= 1000) {
+    timeLeft = 0;
+    clearInterval(intervalId);
+  }
+};
 
 startBtn.addEventListener("click", function (e) {
   e.preventDefault();
@@ -58,7 +59,7 @@ startBtn.addEventListener("click", function (e) {
   timeLeft = calcRemainingTime(targetDate, now);
   remainingTime = getRemainingDate(timeLeft);
   intervalId = setInterval(countDown, 1000);
-  // setInterval(killCountDown,1000)
+  setInterval(killCountDown, 1000);
   // Display Remaining date
   displayTimeLeft();
 });
