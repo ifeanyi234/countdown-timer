@@ -12,9 +12,11 @@ const resetBtn = document.querySelector("#resetBtn");
 let timeLeft;
 let remainingTime;
 let intervalId;
-let intervalId2;
+let killIntervalId;
 let now;
 let targetDate;
+
+let isPaused = false;
 
 const calcRemainingTime = function (target, now) {
   return target.getTime() - now.getTime();
@@ -34,11 +36,13 @@ const displayTimeLeft = function () {
   secondsHtmlEl.innerHTML = String(remainingTime.second).padStart(2, "0");
 };
 const countDown = function () {
-  timeLeft -= 1000;
+  if (!isPaused) {
+    timeLeft -= 1000;
 
-  remainingTime = getRemainingDate(timeLeft);
-  console.log(timeLeft);
-  displayTimeLeft();
+    remainingTime = getRemainingDate(timeLeft);
+    console.log(timeLeft);
+    displayTimeLeft();
+  }
 };
 
 const killCountDown = function () {
@@ -47,7 +51,7 @@ const killCountDown = function () {
     console.log(timeLeft);
     clearInterval(intervalId);
     btnVisibility(true);
-    clearInterval(intervalId2);
+    clearInterval(killIntervalId);
   }
 };
 const btnVisibility = function (bool) {
@@ -68,9 +72,14 @@ startBtn.addEventListener("click", function (e) {
   timeLeft = calcRemainingTime(targetDate, now);
   remainingTime = getRemainingDate(timeLeft);
   intervalId = setInterval(countDown, 1000);
-  intervalId2 = setInterval(killCountDown, 1000);
+  killIntervalId = setInterval(killCountDown, 1000);
+
   // Display Remaining date
   displayTimeLeft();
 
   btnVisibility(false);
+});
+
+pauseBtn.addEventListener("click", function () {
+  isPaused = true;
 });
