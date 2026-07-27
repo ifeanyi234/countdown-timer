@@ -43,8 +43,15 @@ const countDown = function () {
 const killCountDown = function () {
   if (timeLeft <= 1000) {
     timeLeft = 0;
+    console.log(timeLeft);
     clearInterval(intervalId);
+    btnVisibility(true);
   }
+};
+const btnVisibility = function (bool) {
+  //Enable buttons
+  pauseBtn.disabled = bool;
+  resetBtn.disabled = bool;
 };
 
 startBtn.addEventListener("click", function (e) {
@@ -62,4 +69,6 @@ startBtn.addEventListener("click", function (e) {
   setInterval(killCountDown, 1000);
   // Display Remaining date
   displayTimeLeft();
+
+  btnVisibility(false);
 });
