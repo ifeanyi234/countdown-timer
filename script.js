@@ -62,11 +62,11 @@ const btnVisibility = function (bool) {
 
 startBtn.addEventListener("click", function (e) {
   e.preventDefault();
-  isPaused = false;
   if (!targetDateInput.value) {
     return;
   }
   clearInterval(intervalId);
+  isPaused = false;
   targetDate = new Date(targetDateInput.value);
   now = new Date();
 
@@ -91,6 +91,7 @@ resetBtn.addEventListener("click", function () {
   clearInterval(intervalId);
 
   targetDateInput.value = "";
+  finishedMsg.classList.add("hidden");
   btnVisibility(true);
   displayTimeLeft();
 
