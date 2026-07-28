@@ -83,3 +83,16 @@ startBtn.addEventListener("click", function (e) {
 pauseBtn.addEventListener("click", function () {
   isPaused = true;
 });
+
+resetBtn.addEventListener("click", function () {
+  timeLeft = 0;
+  remainingTime = getRemainingDate(timeLeft);
+
+  clearInterval(intervalId);
+
+  targetDateInput.value = "";
+  btnVisibility(true);
+  displayTimeLeft();
+
+  console.log(timeLeft);
+});
