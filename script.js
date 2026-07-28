@@ -5,6 +5,7 @@ const minutesHtmlEl = document.querySelector("#minutes");
 const secondsHtmlEl = document.querySelector("#seconds");
 
 const targetDateInput = document.querySelector("#targetDate");
+const finishedMsg = document.querySelector("#finishedMsg");
 const startBtn = document.querySelector("#startBtn");
 const pauseBtn = document.querySelector("#pauseBtn");
 const resetBtn = document.querySelector("#resetBtn");
@@ -47,6 +48,9 @@ const countDown = function () {
     console.log(timeLeft);
     clearInterval(intervalId);
     btnVisibility(true);
+    finishedMsg.classList.remove("hidden");
+  } else {
+    finishedMsg.classList.add("hidden");
   }
 };
 
