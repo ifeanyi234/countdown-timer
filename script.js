@@ -6,6 +6,7 @@ const secondsHtmlEl = document.querySelector("#seconds");
 
 const targetDateInput = document.querySelector("#targetDate");
 const finishedMsg = document.querySelector("#finishedMsg");
+const error = document.querySelector("#error");
 const startBtn = document.querySelector("#startBtn");
 const pauseBtn = document.querySelector("#pauseBtn");
 const resetBtn = document.querySelector("#resetBtn");
@@ -13,8 +14,6 @@ const resetBtn = document.querySelector("#resetBtn");
 let timeLeft;
 let remainingTime;
 let intervalId;
-let now;
-let targetDate;
 
 let isPaused = false;
 
@@ -38,14 +37,12 @@ const displayTimeLeft = function () {
 const countDown = function () {
   if (!isPaused) {
     timeLeft -= 1000;
-
     remainingTime = getRemainingDate(timeLeft);
     console.log(timeLeft);
     displayTimeLeft();
   }
   if (timeLeft <= 1000) {
     timeLeft = 0;
-    console.log(timeLeft);
     clearInterval(intervalId);
     btnVisibility(true);
     finishedMsg.classList.remove("hidden");
@@ -62,15 +59,22 @@ const btnVisibility = function (bool) {
 
 startBtn.addEventListener("click", function (e) {
   e.preventDefault();
+  const targetDate = new Date(targetDateInput.value);
+  const now = new Date();
+
+  timeLeft = calcRemainingTime(targetDate, now);
   if (!targetDateInput.value) {
     return;
+  } else if (timeLeft <= 0) {
+    error.classList.remove("hidden");
+    error.textContent = "The selected date/time has passed!";
+    return;
+  } else {
+    error.classList.add("hidden");
   }
   clearInterval(intervalId);
   isPaused = false;
-  targetDate = new Date(targetDateInput.value);
-  now = new Date();
 
-  timeLeft = calcRemainingTime(targetDate, now);
   remainingTime = getRemainingDate(timeLeft);
   intervalId = setInterval(countDown, 1000);
 
@@ -94,6 +98,4 @@ resetBtn.addEventListener("click", function () {
   finishedMsg.classList.add("hidden");
   btnVisibility(true);
   displayTimeLeft();
-
-  console.log(timeLeft);
 });
