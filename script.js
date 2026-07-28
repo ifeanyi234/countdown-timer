@@ -12,7 +12,6 @@ const resetBtn = document.querySelector("#resetBtn");
 let timeLeft;
 let remainingTime;
 let intervalId;
-let killIntervalId;
 let now;
 let targetDate;
 
@@ -43,17 +42,14 @@ const countDown = function () {
     console.log(timeLeft);
     displayTimeLeft();
   }
-};
-
-const killCountDown = function () {
   if (timeLeft <= 1000) {
     timeLeft = 0;
     console.log(timeLeft);
     clearInterval(intervalId);
     btnVisibility(true);
-    clearInterval(killIntervalId);
   }
 };
+
 const btnVisibility = function (bool) {
   //Enable buttons
   pauseBtn.disabled = bool;
@@ -72,7 +68,6 @@ startBtn.addEventListener("click", function (e) {
   timeLeft = calcRemainingTime(targetDate, now);
   remainingTime = getRemainingDate(timeLeft);
   intervalId = setInterval(countDown, 1000);
-  killIntervalId = setInterval(killCountDown, 1000);
 
   // Display Remaining date
   displayTimeLeft();
