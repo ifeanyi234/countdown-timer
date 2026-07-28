@@ -58,6 +58,7 @@ const btnVisibility = function (bool) {
 
 startBtn.addEventListener("click", function (e) {
   e.preventDefault();
+  isPaused = false;
   if (!targetDateInput.value) {
     return;
   }
