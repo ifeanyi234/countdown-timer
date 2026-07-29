@@ -38,7 +38,6 @@ const countDown = function () {
   if (!isPaused) {
     timeLeft -= 1000;
     remainingTime = getRemainingDate(timeLeft);
-    console.log(timeLeft);
     displayTimeLeft();
   }
   if (timeLeft <= 1000) {
@@ -59,13 +58,16 @@ const btnVisibility = function (bool) {
 
 startBtn.addEventListener("click", function (e) {
   e.preventDefault();
+  if (!targetDateInput.value) {
+    error.classList.remove("hidden");
+    error.textContent = "Please select a target date and time";
+    return;
+  }
   const targetDate = new Date(targetDateInput.value);
   const now = new Date();
 
   timeLeft = calcRemainingTime(targetDate, now);
-  if (!targetDateInput.value) {
-    return;
-  } else if (timeLeft <= 0) {
+  if (timeLeft <= 0) {
     error.classList.remove("hidden");
     error.textContent = "The selected date/time has passed!";
     return;
@@ -85,7 +87,17 @@ startBtn.addEventListener("click", function (e) {
 });
 
 pauseBtn.addEventListener("click", function () {
-  isPaused = true;
+  if (!isPaused) {
+    // Pause
+    isPaused = true;
+    clearInterval(intervalId);
+    pauseBtn.textContent = "Resume";
+  } else {
+    // Resume
+    isPaused = false;
+    intervalId = setInterval(countDown, 1000);
+    pauseBtn.textContent = "Pause";
+  }
 });
 
 resetBtn.addEventListener("click", function () {
@@ -96,6 +108,7 @@ resetBtn.addEventListener("click", function () {
 
   targetDateInput.value = "";
   finishedMsg.classList.add("hidden");
+  pauseBtn.textContent = "Pause";
   btnVisibility(true);
   displayTimeLeft();
 });
